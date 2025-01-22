@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fingerprint Payment Fraud Demo</title>
+    <link rel="icon" href="/images/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .fire {
+        color: #f35b22 !important;
+      }
+
+      .bg-fire {
+        background-color: #f35b22 !important;
+      }
+
+      .bg-fire-light:hover {
+        background-color: #ff7e59 !important;
+      }
+
+      .ring-fire:focus {
+        outline: none;
+        --ring-color: #f35b22 !important;
+        --tw-ring-color: #f35b22 !important;
+      }
+
+      .border-fire,
+      .border-fire:focus {
+        border-color: #f35b22 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="bg-white py-8 antialiased md:py-16">
+      <div class="mx-auto max-w-2xl px-4 2xl:px-0">
+        <h1
+          class="w-full mt-10 mb-8 text-4xl font-extrabold md:max-w-2xl md:text-5xl xl:text-6xl fire"
+        >
+          Awesome Store
+        </h1>
+        <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl mb-2">
+          Thanks for your order!
+        </h2>
+        <p class="text-gray-500 mb-6 md:mb-8">
+          Your order
+          <span class="font-medium text-gray-900">#<%= orderNum %></span>
+          is in the queue and will be processed within 24 hours on business
+          days. Keep an eye on your inbox—we'll send you an email as soon as
+          it's shipped and on its way to you!
+        </p>
+        <div
+          class="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 mb-6 md:mb-8"
+        >
+          <dl class="sm:flex items-center justify-between gap-4">
+            <dt class="font-normal mb-1 sm:mb-0 text-gray-500">Date</dt>
+            <dd class="font-medium text-gray-900 sm:text-end">21 Jan 2025</dd>
+          </dl>
+          <dl class="sm:flex items-center justify-between gap-4">
+            <dt class="font-normal mb-1 sm:mb-0 text-gray-500">
+              Payment Method
+            </dt>
+            <dd class="font-medium text-gray-900 sm:text-end">
+              Visa ending in 1234
+            </dd>
+          </dl>
+          <dl class="sm:flex items-center justify-between gap-4">
+            <dt class="font-normal mb-1 sm:mb-0 text-gray-500">Name</dt>
+            <dd class="font-medium text-gray-900 sm:text-end">Jamie Doe</dd>
+          </dl>
+          <dl class="sm:flex items-center justify-between gap-4">
+            <dt class="font-normal mb-1 sm:mb-0 text-gray-500">Address</dt>
+            <dd class="font-medium text-gray-900 sm:text-end">
+              456 Lakeview Avenue, Seattle, WA 98102
+            </dd>
+          </dl>
+          <dl class="sm:flex items-center justify-between gap-4">
+            <dt class="font-normal mb-1 sm:mb-0 text-gray-500">Phone</dt>
+            <dd class="font-medium text-gray-900 sm:text-end">
+              +1 (206) 555-1234
+            </dd>
+          </dl>
+        </div>
+        <div class="flex items-center justify-center">
+          <a
+            href="/checkout"
+            class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+            >Return to shopping</a
+          >
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
