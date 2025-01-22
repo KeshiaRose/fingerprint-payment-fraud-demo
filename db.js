@@ -15,7 +15,7 @@ async function createTables(db) {
   const ordersTable = `
     CREATE TABLE IF NOT EXISTS orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      visitorId TEXT NOT NULL,
+      visitorId TEXT NOT NULL DEFAULT "",
       orderNum TEXT NOT NULL,
       items TEXT NOT NULL,
       total REAL NOT NULL,

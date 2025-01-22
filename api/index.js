@@ -17,17 +17,21 @@ const {
 } = require("@fingerprintjs/fingerprintjs-pro-server-api");
 
 router.post("/process-order", async (req, res) => {
+  // TODO: Get Fingerprint sealed result
   const { items, coupon, total, sealedResult } = req.body;
   const orderNum = Math.floor(Math.random() * 1000000);
 
+  // TODO: Get visitorId from the sealed result
   const event = await getFingerprintData(sealedResult);
   const visitorId = event.products.identification.data.visitorId;
   if (!visitorId) return res.send({ success: false, error: "Order failed!" });
 
+  // TODO: Check for bot detection
   const botDetection = event.products.botd.data.bot.result;
   if (botDetection !== "notDetected")
     return res.send({ success: false, error: "Order failed!" });
 
+  // TODO: Check for high suspect score
   const suspectScore = event.products.suspectScore.data.result;
   if (suspectScore > 12)
     return res.send({
@@ -35,6 +39,7 @@ router.post("/process-order", async (req, res) => {
       warning: "Please contact support to complete your order.",
     });
 
+  // TODO: Check for past fraudulent orders
   const pastFraud = await checkForFraud(visitorId);
   if (pastFraud)
     return res.send({
@@ -42,6 +47,7 @@ router.post("/process-order", async (req, res) => {
       error: "Order failed!",
     });
 
+  // TODO: Include visitorId in the order
   await db.run(
     "INSERT INTO orders (orderNum, items, total, coupon, visitorId) VALUES (?, ?, ?, ?, ?)",
     [orderNum, JSON.stringify(items), total, coupon, visitorId]
@@ -52,12 +58,15 @@ router.post("/process-order", async (req, res) => {
 });
 
 router.post("/validate-coupon", async (req, res) => {
+  // TODO: Get Fingerprint sealed result
   const { coupon, sealedResult } = req.body;
 
+  // TODO: Get visitorId from the sealed result
   const event = await getFingerprintData(sealedResult);
   const visitorId = event.products.identification.data.visitorId;
   if (!visitorId) return res.send({ success: false, error: "Invalid coupon!" });
 
+  // TODO: Check if coupon has already been used
   const usedCoupon = await db.all(
     `SELECT COUNT(*) AS count
         FROM orders
@@ -77,6 +86,7 @@ router.post("/validate-coupon", async (req, res) => {
   return res.send({ success: true, percent: validCoupon.percent });
 });
 
+// TODO: Implement the getFingerprintData function
 async function getFingerprintData(sealedResult) {
   const decryptionKey = process.env.FINGERPRINT_ENCRYPTION_KEY;
 
@@ -92,6 +102,7 @@ async function getFingerprintData(sealedResult) {
   return unsealedData;
 }
 
+// TODO: Implement the checkForFraud function
 async function checkForFraud(visitorId) {
   const rows = await db.all(
     `SELECT COUNT(*) AS count
