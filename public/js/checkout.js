@@ -1,7 +1,5 @@
 // TODO: Initialize the Fingerprint agent as soon as possible
-const fpPromise = import("https://fpjscdn.net/v3/jm6zdsSsM6d83g1fuDsS").then(
-  (FingerprintJS) => FingerprintJS.load({ region: "us" })
-);
+
 const { createApp } = Vue;
 
 createApp({
@@ -59,9 +57,6 @@ createApp({
       this.coupon = this.coupon.toUpperCase();
 
       // TODO: Request identification data when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
-      const { sealedResult } = result;
 
       // TODO: Include the requestId and/or sealedResult with the order details
       const response = await fetch("/api/validate-coupon", {
@@ -69,7 +64,7 @@ createApp({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ coupon: this.coupon, sealedResult }),
+        body: JSON.stringify({ coupon: this.coupon }),
       });
 
       const data = await response.json();
@@ -91,9 +86,6 @@ createApp({
     },
     async submitOrder() {
       // TODO: Request identification data when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
-      const { sealedResult } = result;
 
       // TODO: Include the requestId and/or sealedResult with the order details
       const response = await fetch("/api/process-order", {
@@ -105,7 +97,6 @@ createApp({
           items: this.items,
           coupon: this.coupon,
           total: Math.round(this.total * 100) / 100,
-          sealedResult,
         }),
       });
 
